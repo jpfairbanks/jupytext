@@ -125,9 +125,10 @@ class TextNotebookWriter(NotebookWriter):
             lines.extend(text)
             lines.extend([''] * cell.lines_to_next_cell)
 
-            # two blank lines between markdown cells in Rmd
+            # two blank lines between markdown cells with no header in Rmd
             if self.ext in ['.Rmd', '.md'] and not cell.is_code():
-                if i + 1 < len(cell_exporters) and not cell_exporters[i + 1].is_code():
+                if i + 1 < len(cell_exporters) and not cell_exporters[i + 1].is_code() and \
+                        not (texts[i + 1] and texts[i + 1][0].startswith('#')):
                     lines.append('')
 
             # "" between two consecutive code cells in sphinx

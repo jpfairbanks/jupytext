@@ -44,8 +44,10 @@ JUPYTEXT_FORMATS = \
             header_prefix='',
             cell_reader_class=MarkdownCellReader,
             cell_exporter_class=MarkdownCellExporter,
+            # Version 1.1 on 2018-11-28 - jupytext v0.8.7 : Split markdown cells at heading
             # Version 1.0 on 2018-08-31 - jupytext v0.6.0 : Initial version
-            current_version_number='1.0'),
+            current_version_number='1.1',
+            min_readable_version_number='1.0'),
 
         NotebookFormatDescription(
             format_name='rmarkdown',
@@ -53,8 +55,10 @@ JUPYTEXT_FORMATS = \
             header_prefix='',
             cell_reader_class=RMarkdownCellReader,
             cell_exporter_class=RMarkdownCellExporter,
+            # Version 1.1 on 2018-11-28 - jupytext v0.8.7 : Split markdown cells at heading
             # Version 1.0 on 2018-08-22 - jupytext v0.5.2 : Initial version
-            current_version_number='1.0')] + \
+            current_version_number='1.1',
+            min_readable_version_number='1.0')] + \
     [
         NotebookFormatDescription(
             format_name='spin',

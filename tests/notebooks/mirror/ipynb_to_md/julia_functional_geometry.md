@@ -101,7 +101,6 @@ e.g. The value of f here denotes the picture of the letter F
 
 Original at http://nbviewer.jupyter.org/github/shashi/ijulia-notebooks/blob/master/funcgeo/Functional%20Geometry.ipynb
 
-
 ## In conclusion
 
 We described Escher's *Square Limit* from the description of its smaller parts, which in turn were described in terms of their smaller parts.

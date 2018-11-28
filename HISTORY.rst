@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+0.8.7 (2018-11-??)
+++++++++++++++++++++++
+
+**Improvements**
+
+- Markdown and R Markdown format split cells on heading (#130).
+
 0.8.6 (2018-11-??)
 ++++++++++++++++++++++
 

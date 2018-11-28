@@ -265,6 +265,9 @@ class MarkdownCellReader(BaseCellReader):
                     if i > 1 and prev_blank:
                         return i - 1, i, False
                     return i, i, False
+                # Split on markdown headers
+                if line.startswith('#') and prev_blank >= 1:
+                    return i - 1, i, False
                 if _BLANK_LINE.match(lines[i]):
                     prev_blank += 1
                 elif i > 2 and prev_blank >= 2:
