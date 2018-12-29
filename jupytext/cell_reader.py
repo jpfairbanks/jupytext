@@ -249,6 +249,7 @@ class MarkdownCellReader(BaseCellReader):
     start_code_re = re.compile(r"^```(.*)")
     end_code_re = re.compile(r"^```\s*$")
     default_comment_magics = False
+    split_at_heading = False
 
     def options_to_metadata(self, options):
         return md_options_to_metadata(options)
@@ -265,6 +266,8 @@ class MarkdownCellReader(BaseCellReader):
                     if i > 1 and prev_blank:
                         return i - 1, i, False
                     return i, i, False
+                if self.split_at_heading and line.startswith('#') and prev_blank >= 1:
+                    return i - 1, i, False
                 if _BLANK_LINE.match(lines[i]):
                     prev_blank += 1
                 elif i > 2 and prev_blank >= 2:
@@ -289,6 +292,11 @@ class MarkdownCellReader(BaseCellReader):
         return unescape_code_start(lines, self.ext, self.language or self.default_language)
 
 
+class MarkdownCellReaderSplitAtHeading(MarkdownCellReader):
+    """Read notebook cells from Markdown documents, and split cells at headings"""
+    split_at_heading = True
+
+
 class RMarkdownCellReader(MarkdownCellReader):
     """Read notebook cells from R Markdown notebooks"""
     comment = ''
@@ -308,6 +316,10 @@ class RMarkdownCellReader(MarkdownCellReader):
                             self.default_language)
 
         return lines
+
+class RMarkdownCellReaderSplitAtHeading(RMarkdownCellReader):
+    """Read notebook cells from R Markdown notebooks, and split cells at headings"""
+    split_at_heading = True
 
 
 class ScriptCellReader(BaseCellReader):

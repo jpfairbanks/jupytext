@@ -93,6 +93,7 @@ class TextNotebookWriter(NotebookWriter):
         nb = deepcopy(nb)
         default_language = default_language_from_metadata_and_ext(nb, self.format.extension)
         comment_magics = nb.metadata.get('jupytext', {}).get('comment_magics')
+        split_at_heading = 'split-at-heading' in self.format.format_name
         cell_metadata_filter = nb.metadata.get('jupytext', {}).get('metadata_filter', {}).get('cells')
         if 'main_language' in nb.metadata.get('jupytext', {}):
             del nb.metadata['jupytext']['main_language']
@@ -127,7 +128,8 @@ class TextNotebookWriter(NotebookWriter):
 
             # two blank lines between markdown cells in Rmd
             if self.ext in ['.Rmd', '.md'] and not cell.is_code():
-                if i + 1 < len(cell_exporters) and not cell_exporters[i + 1].is_code():
+                if i + 1 < len(cell_exporters) and not cell_exporters[i + 1].is_code() and (
+                        not split_at_heading or not (texts[i + 1] and texts[i + 1][0].startswith('#'))):
                     lines.append('')
 
             # "" between two consecutive code cells in sphinx

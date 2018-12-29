@@ -7,6 +7,7 @@ import os
 import re
 from .header import header_to_metadata_and_cell, insert_or_test_version_number
 from .cell_reader import MarkdownCellReader, RMarkdownCellReader, \
+    MarkdownCellReaderSplitAtHeading, RMarkdownCellReaderSplitAtHeading, \
     LightScriptCellReader, RScriptCellReader, DoublePercentScriptCellReader, HydrogenCellReader, \
     SphinxGalleryScriptCellReader, SphinxGalleryScriptRst2mdCellReader
 from .cell_to_text import MarkdownCellExporter, RMarkdownCellExporter, \
@@ -54,6 +55,24 @@ JUPYTEXT_FORMATS = \
             cell_reader_class=RMarkdownCellReader,
             cell_exporter_class=RMarkdownCellExporter,
             # Version 1.0 on 2018-08-22 - jupytext v0.5.2 : Initial version
+            current_version_number='1.0'),
+
+        NotebookFormatDescription(
+            format_name='markdown-split-at-heading',
+            extension='.md',
+            header_prefix='',
+            cell_reader_class=MarkdownCellReaderSplitAtHeading,
+            cell_exporter_class=MarkdownCellExporter,
+            # Version 1.0 on 2018-12-16 - jupytext v0.9.0 : Initial version
+            current_version_number='1.0'),
+
+        NotebookFormatDescription(
+            format_name='rmarkdown-split-at-heading',
+            extension='.Rmd',
+            header_prefix='',
+            cell_reader_class=RMarkdownCellReaderSplitAtHeading,
+            cell_exporter_class=RMarkdownCellExporter,
+            # Version 1.0 on 2018-12-16 - jupytext v0.9.0 : Initial version
             current_version_number='1.0')] + \
     [
         NotebookFormatDescription(
@@ -121,7 +140,6 @@ JUPYTEXT_FORMATS = \
             # Version 1.0 on 2018-09-22 - jupytext v0.7.0rc0 : Initial version
             current_version_number='1.0')
     ]
-
 NOTEBOOK_EXTENSIONS = list(dict.fromkeys(
     ['.ipynb'] + [fmt.extension for fmt in JUPYTEXT_FORMATS]))
 EXTENSION_PREFIXES = ['.lgt', '.spx', '.pct', '.hyd', '.nb']

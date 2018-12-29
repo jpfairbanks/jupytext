@@ -28,5 +28,8 @@ def list_notebooks(path='ipynb', skip=''):
     else:
         notebooks = [os.path.join(nb_path, nb_file) for nb_file in os.listdir(nb_path)]
 
+    # Skip largest notebook
+    notebooks = [nb_file for nb_file in notebooks if 'World population' not in nb_file]
+
     assert notebooks
     return notebooks
